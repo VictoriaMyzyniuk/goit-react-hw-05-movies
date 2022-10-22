@@ -1,25 +1,30 @@
-// import * as onSearchQuery from 'services/api';
-// import { useState, useEffect } from 'react';
+import * as API from 'services/api';
+import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-const Movies = () => {
-  // const [searchedFilms, setsearchedFilms] = useState([]);
+import { useSearchParams } from 'react-router-dom';
+import MovieList from 'components/MovieList';
 
-  // useEffect(() => {
-  //   async function loadSearchedFilms(values) {
-  //     try {
-  //       const receivedSearchedFilms = await onSearchQuery.getMovieByQuery(
-  //         values
-  //       );
-  //       setsearchedFilms(receivedSearchedFilms);
-  //       console.log('receivedFilms', receivedSearchedFilms);
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   }
-  // }, []);
+const Movies = () => {
+  const [searchedFilms, setsearchedFilms] = useState([]);
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const query = searchParams.get('searchQuery');
+
+  async function loadSearchedFilms(value) {
+    try {
+      const receivedSearchedFilms = await API.getMovieByQuery(value);
+      setsearchedFilms(receivedSearchedFilms);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   const handleSubmit = (values, actions) => {
     actions.setSubmitting(false);
+
+    if (values.searchQuery === '') {
+      return;
+    }
+    loadSearchedFilms(values.searchQuery);
   };
 
   return (
@@ -42,11 +47,7 @@ const Movies = () => {
           </Form>
         )}
       </Formik>
-      {/* <ul>
-        {searchedFilms.map(({ title, id }) => {
-          return <li key={id}> {title} </li>;
-        })}
-      </ul> */}
+      <MovieList films={searchedFilms} />
     </main>
   );
 };

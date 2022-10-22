@@ -7,13 +7,20 @@ export const getPopularMovies = async () => {
   const response = await axios.get(
     `${BASE_URL}trending/movie/day?api_key=${KEY}`
   );
-  // console.log(response.data.results);
   return response.data.results;
 };
 
 export const getMovieByQuery = async query => {
   const response = await axios.get(
     `${BASE_URL}search/movie?api_key=${KEY}&language=en-US&page=1&include_adult=false&query=${query}`
+  );
+
+  return response.data.results;
+};
+
+export const getMovieById = async id => {
+  const response = await axios.get(
+    `${BASE_URL}movie/${id}?api_key=${KEY}&language=eng`
   );
 
   return response.data;

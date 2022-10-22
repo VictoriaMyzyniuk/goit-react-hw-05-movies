@@ -1,6 +1,8 @@
 import * as API from 'services/api';
 import { useState, useEffect } from 'react';
 
+import MovieList from 'components/MovieList';
+
 const Home = () => {
   const [films, setFilms] = useState([]);
 
@@ -9,7 +11,7 @@ const Home = () => {
       try {
         const receivedFilms = await API.getPopularMovies();
         setFilms(receivedFilms);
-        console.log('receivedFilms', receivedFilms);
+        // console.log('receivedFilms', receivedFilms);
       } catch (error) {
         console.log(error.message);
       }
@@ -20,11 +22,7 @@ const Home = () => {
   return (
     <main>
       <h1>Trending today</h1>
-      <ul>
-        {films.map(({ title, id }) => {
-          return <li key={id}> {title} </li>;
-        })}
-      </ul>
+      <MovieList films={films} />
     </main>
   );
 };

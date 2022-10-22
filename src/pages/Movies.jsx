@@ -1,7 +1,7 @@
 import * as API from 'services/api';
 import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { useSearchParams } from 'react-router-dom';
+// import { useSearchParams } from 'react-router-dom';
 import MovieList from 'components/MovieList';
 
 const Movies = () => {

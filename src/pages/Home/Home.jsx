@@ -1,7 +1,8 @@
 import * as API from 'services/api';
 import { useState, useEffect } from 'react';
 
-import MovieList from 'components/MovieList';
+import MovieList from 'components/MovieList/MovieList';
+import { HomeHeader, Main } from 'pages/Home/Home.styled';
 
 const Home = () => {
   const [films, setFilms] = useState([]);
@@ -11,7 +12,6 @@ const Home = () => {
       try {
         const receivedFilms = await API.getPopularMovies();
         setFilms(receivedFilms);
-        // console.log('receivedFilms', receivedFilms);
       } catch (error) {
         console.log(error.message);
       }
@@ -20,10 +20,10 @@ const Home = () => {
   }, []);
 
   return (
-    <main>
-      <h1>Trending today</h1>
+    <Main>
+      <HomeHeader>Trending today</HomeHeader>
       <MovieList films={films} />
-    </main>
+    </Main>
   );
 };
 

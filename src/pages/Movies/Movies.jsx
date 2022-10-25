@@ -52,7 +52,10 @@ const Movies = () => {
   return (
     <MoviesMain>
       <MoviesHeader>Movies</MoviesHeader>
-      <Formik initialValues={{ searchQuery: '' }} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={{ searchQuery: searchParams.get('query') || '' }}
+        onSubmit={handleSubmit}
+      >
         {({ isSubmitting }) => (
           <FormEl>
             <FieldEl
